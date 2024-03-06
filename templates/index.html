@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+    <html lang="en">
+
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width , initial-scale=1.0">
+            <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+            <title> Accu weather</title>
+        </head>
+
+        <body class="main">
+            <h1>Weather info</h1>
+
+            <div>
+                 <form method="POST" action="/">
+                    <label for="latitude">Latitude :</label>
+                    <input type="text" name="latitude" required>
+
+                    <label for="longitude">Longitude :</label>
+                    <input type="text" name="longitude" required>
+
+                    <button type="submit">Get Weather</button>    
+                </form>   
+            </div>
+
+           
+                {% if weather_data %}
+                  <div>
+                    <h2>Weather Info</h2>
+                    
+                    <p>City: {{ weather_data['name'] }}</p>
+                    <p>Country: {{weather_data['sys']['country']}}</p>
+                    <p>Temperature: {{ (weather_data['main']['temp'] - 273.15) | round(1) }} °C</p>
+                    <p>Timezone: {{weather_data['timezone']}}</p>
+                    <p>Weather: {{ weather_data['weather'][0]['description'] }}</p>
+                    <img src="http://openweathermap.org/img/w/{{ weather_data['weather'][0]['icon'] }}.png" alt="Weather Icon">
+                 </div>
+                {% endif %}
+
+
+        </body>
+
+
+    </html>
